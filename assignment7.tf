@@ -99,15 +99,15 @@ resource "aws_route_table_association" "tf-ra" {
   route_table_id = aws_route_table.tf-r.id
 }
 
-resource "aws_key_pair" "tf-key" {
-  key_name   = "tf-key"
+resource "aws_key_pair" "new-tf-key" {
+  key_name   = "new-tf-key"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCvj9HFcPhPRZMSYs8MXLsq9bElOLe36l5ivJLJyI+ztQRZk4Gcac0UTDT7LLGRikXglAcw17ruhYC8alNCC7bOzZokofLXtCt0mFeDcJivwQ9BzmCyV+3bFQ34SEdWjw5OG+D8MzZ+P6G5PVdxzrAlzD4XLm9RVbo79zWHIsqxji9igOtpw5+DAM0Yfw7Std5kb+rqyT8Ppbkf3NUdgUzmmgSwGJBbDuWj1VpxeJobMHVzIv/PtiKkGQyAusMVy3ju3ltQsiX5Vxq7Ew+MzY9LJfZ0nigLYi+AY8KaxoSRGNVDjxE+TVuwHGD2JhBcKYWrhcem8B6u96EAqBbL7uSP d00393160@desdemona"
 
 }
 resource "aws_instance" "dev" {
   ami           = "ami-0557a15b87f6559cf"
   instance_type = "t2.micro"
-  key_name      = aws_key_pair.tf-key.key_name
+  key_name      = aws_key_pair.new-tf-key.key_name
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.tf-sg.id]
   subnet_id = aws_subnet.tf-subnet.id
@@ -125,7 +125,7 @@ tags = {
 resource "aws_instance" "test" {
   ami           = "ami-0557a15b87f6559cf"
   instance_type = "t2.micro"
-  key_name      = aws_key_pair.tf-key.key_name
+  key_name      = aws_key_pair.new-tf-key.key_name
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.tf-sg.id]
   subnet_id = aws_subnet.tf-subnet.id
@@ -143,7 +143,7 @@ tags = {
 resource "aws_instance" "prod" {
   ami           = "ami-0557a15b87f6559cf"
   instance_type = "t2.micro"
-  key_name      = aws_key_pair.tf-key.key_name
+  key_name      = aws_key_pair.new-tf-key.key_name
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.tf-sg.id]
   subnet_id = aws_subnet.tf-subnet.id
